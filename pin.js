@@ -1,5 +1,6 @@
-/* jQuery Pin Plugin - v1.0.0 
+/* jQuery Pin Plugin - v1.0.1 
  * Copyright (c) 2015 Zeyu Feng; Licensed MIT
+ * https://github.com/clarkfbar/pin
  * */
 
 (function(){
