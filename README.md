@@ -11,5 +11,6 @@ $(DOM).pin()
 $(DOM).pin({
   top: 10 // fixed的时候，距离顶部的距离
   container: "selector", // 其父级中的一个，DOM元素只会在这个container中活动
-  bottom: 20 // 距离底部的距离，小于这个距离就会停止
+  bottom: 20 // 距离底部的距离，小于这个距离就会停止,
+  minWidth: 200 // 最小使用pin的宽度
 })
