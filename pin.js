@@ -45,14 +45,18 @@
       originalTop = $nav.offset().top;
       originalLeft = $nav.offset().left;
       
-      // 计算最大可以到哪里
-      if(settings.container) {
-        maxBottom = $container.offset().top + $container.height() - settings.bottom - $nav.height();
-      }
+      calculateBottom();
       
       // 重新定位位置
       onScroll();
     };
+    
+    function calculateBottom(){
+      // 计算最大可以到哪里
+      if(settings.container) {
+        maxBottom = $container.offset().top + $container.height() - settings.bottom - $nav.height();
+      }
+    }
 
     function getWinWidth(){
       if(window.innerWidth) {
@@ -73,9 +77,10 @@
         return false;
       }
       var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
-
+      
       if(scrollTop > originalTop - settings.top) {
         // 如果超过最大底部，那么设置为absolute,使目标停留在固定位置
+        calculateBottom();
         if (maxBottom && maxBottom <= scrollTop + settings.top) {
           $nav.css({position: "absolute", top: maxBottom, left: originalLeft});
           if(settings.activeClass){
