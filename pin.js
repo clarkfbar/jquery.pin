@@ -1,4 +1,4 @@
-/* jQuery Pin Plugin - v1.0.1 
+/* jQuery Pin Plugin - v1.0.1
  * Copyright (c) 2015 Zeyu Feng; Licensed MIT
  * https://github.com/clarkfbar/pin
  * */
@@ -10,7 +10,8 @@
       container: "body",
       top: 0,
       bottom: 0,
-      activeClass: null
+      activeClass: null,
+      minWidth: null
     };
     settings = $.extend(settings, options);
     
@@ -21,10 +22,24 @@
       settings.container = "body";
     } 
     var $container = $nav.closest(settings.container);
+
+    // minWidth必须是个数字或者是null
+    var minWidth = settings.minWidth;
+    if(minWidth) {
+      if(!$.isNumeric(minWidth)) {
+        settings.minWidth = null;
+      } else {
+        settings.minWidth = parseFloat(minWidth);
+      }
+    }
     
     function calculatePosition(){
       // 先把位置改为默认的
       $nav.css({position: "static"});
+
+      if(settings.minWidth && settings.minWidth >= getWinWidth()) {
+        return false;
+      }
       
       // 计算默认时的位置
       originalTop = $nav.offset().top;
@@ -39,6 +54,14 @@
       onScroll();
     };
 
+    function getWinWidth(){
+      if(window.innerWidth) {
+        return window.innerWidth;
+      } else {
+        return document.body.clientWidth;
+      }
+    }
+
     function leftAdjust(){
       if($nav.offset().left > $container.offset().left){
         $nav.css("left", originalLeft - ($nav.offset().left - $container.offset().left));
@@ -46,9 +69,14 @@
     }
     
     function onScroll(){
-      if(document.body.scrollTop > originalTop - settings.top) {
+      if(settings.minWidth && settings.minWidth >= getWinWidth()) {
+        return false;
+      }
+      var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+
+      if(scrollTop > originalTop - settings.top) {
         // 如果超过最大底部，那么设置为absolute,使目标停留在固定位置
-        if (maxBottom && maxBottom <= document.body.scrollTop + settings.top) {
+        if (maxBottom && maxBottom <= scrollTop + settings.top) {
           $nav.css({position: "absolute", top: maxBottom, left: originalLeft});
           if(settings.activeClass){
             $nav.removeClass(settings.activeClass);
