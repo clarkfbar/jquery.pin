@@ -7,10 +7,10 @@
 用法：
 
 $(DOM).pin()
-<br>
+<br><br>
 $(DOM).pin({<br>
-  top: 10 // fixed的时候，距离顶部的距离<br>
-  container: "selector", // 其父级中的一个，DOM元素只会在这个container中活动<br>
-  bottom: 20 // 距离底部的距离，小于这个距离就会停止,<br>
-  minWidth: 200 // 最小使用pin的宽度<br>
-})
+&nbsp;&nbsp;top: 10 // fixed的时候，距离顶部的距离<br>
+&nbsp;container: "selector", // 其父级中的一个，DOM元素只会在这个container中活动<br>
+&nbsp;bottom: 20 // 距离底部的距离，小于这个距离就会停止,<br>
+&nbsp;minWidth: 200 // 最小使用pin的宽度<br>
+});
